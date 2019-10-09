@@ -6,5 +6,5 @@ from bookapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('books/', views.booksList.as_view()),
-
+    path('share/', views.share_books),
 ]
