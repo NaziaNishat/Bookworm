@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +43,15 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    'bookapp'
+    'bookapp',
+    'registration',
+
+    # auth settings
+    'django.contrib.sites',
+    'rest_auth',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +142,19 @@ STATIC_URL = '/static/'
 
 # api settings
 CORS_ORIGIN_ALLOW_ALL = True
+
+# auth settings
+SITE_ID = 1
+REST_USE_JWT = True
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+
+}
