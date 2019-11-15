@@ -45,6 +45,9 @@ INSTALLED_APPS = [
 
     'bookapp',
     'registration',
+    'user_profile',
+
+    'django_filters',
 
     # auth settings
     'django.contrib.sites',

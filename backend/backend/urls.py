@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path,include
 from rest_framework_simplejwt import views as jwt_views
 from bookapp import views
+from user_profile import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,5 +20,8 @@ urlpatterns = [
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 
     path('rate-review/', views.rateReviewbooks),
+
+    path('my-profile/', user_views.ProfileView.as_view()),
+    path('edit-profile/', user_views.updateProfile),
 
 ]
