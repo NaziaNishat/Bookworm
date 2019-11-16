@@ -9,6 +9,10 @@ from . models import Profile
 from .serializers import ProfileSerializer
 from rest_framework.response import Response
 from registration.serializers import UserSignUpSerializer
+from rest_framework.generics import GenericAPIView, get_object_or_404
+from rest_framework.mixins import UpdateModelMixin
+from django.contrib.auth.hashers import make_password
+
 
 
 UserModel = get_user_model()
@@ -21,18 +25,21 @@ class ProfileView(generics.ListCreateAPIView):
         serializer = UserSignUpSerializer(user_detail)
         return Response(serializer.data)
 
-@api_view(['POST'])
-def updateProfile(request):
-    # if request.user.is_authenticated:
-    data = request.data
 
-    current_user = request.user.id
-    data['user']=current_user
-    serializer = ProfileSerializer(data=data)
+@api_view(["PUT"])
+def user_update(request):
+    user = UserModel.objects.get(id=request.user.id)
+    if request.method == "PUT":
+        serializer = UserSignUpSerializer(user, data=request.data,partial = True)
+        if serializer.is_valid():
+            if ('password' in request.data):
 
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+                password = make_password(request.data['password'])
+                print(password)
+                serializer.save(password=password)
+            else:
+                serializer.save()
+            # serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response({"error": serializer.errors, "error": True})

@@ -24,6 +24,7 @@ urlpatterns = [
     path('my-books-for-sale/', views.BookSellHistory.as_view()),
 
     path('my-profile/', user_views.ProfileView.as_view()),
-    path('edit-profile/', user_views.updateProfile),
+    path('edit-profile/', user_views.user_update),
+
 
 ]
