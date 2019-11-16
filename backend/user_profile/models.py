@@ -19,3 +19,4 @@ class Profile(models.Model):
     class Meta:
         db_table = "UserProfile"
 
+

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
+
     'bookapp',
     'registration',
     'user_profile',
@@ -151,7 +152,7 @@ SITE_ID = 1
 REST_USE_JWT = True
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600000),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=10),
 }
 
 

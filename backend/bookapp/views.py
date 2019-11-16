@@ -8,9 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import booksSerializer, rateReviewSerializer
 from django.db.models import Q
-# from .filters import *
-
-
+from django.contrib.auth import get_user_model
 
 
 @api_view(['POST'])
@@ -63,7 +61,27 @@ class booksList(APIView):
                 serializer = booksSerializer(allBooks, many=True)
                 return Response(serializer.data)
 
-        # else:
-        #     messages.info(request, 'Log in first')
-        #     return redirect('/')
 
+class BookShareHistory(APIView):
+    def get(self, request):
+
+        # if request.user.is_authenticated:
+
+        current_user = request.user.id
+        userBooks = Books.objects.filter(owner=current_user)
+
+        results = userBooks.filter(type='share')
+        serializer = booksSerializer(results, many=True)
+        return Response(serializer.data)
+
+class BookSellHistory(APIView):
+    def get(self, request):
+
+        # if request.user.is_authenticated:
+
+        current_user = request.user.id
+        userBooks = Books.objects.filter(owner=current_user)
+
+        results = userBooks.filter(type='sell')
+        serializer = booksSerializer(results, many=True)
+        return Response(serializer.data)

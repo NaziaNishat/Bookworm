@@ -20,6 +20,8 @@ urlpatterns = [
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 
     path('rate-review/', views.rateReviewbooks),
+    path('my-shared-books/', views.BookShareHistory.as_view()),
+    path('my-books-for-sale/', views.BookSellHistory.as_view()),
 
     path('my-profile/', user_views.ProfileView.as_view()),
     path('edit-profile/', user_views.updateProfile),
