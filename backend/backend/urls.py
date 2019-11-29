@@ -22,7 +22,7 @@ urlpatterns = [
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 
-    path('rate-review/', views.rateReviewbooks),
+    path('books/<int:pk>/rate-review/', views.rateReviewbooks),
     path('my-shared-books/', views.BookShareHistory.as_view()),
     path('my-books-for-sale/', views.BookSellHistory.as_view()),
 

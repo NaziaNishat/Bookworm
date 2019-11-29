@@ -31,7 +31,7 @@ def share_books(request):
 
 
 @api_view(['POST'])
-def rateReviewbooks(request):
+def rateReviewbooks(request,pk):
     # if request.user.is_authenticated:
     data = request.data
 
