@@ -7,7 +7,10 @@ from user_profile import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('books/', views.booksList.as_view()),
+    path('books/<int:pk>/', views.BookDetailView.as_view()),
+
     path('sharesell/', views.share_books),
 
     # registration

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from rest_framework.decorators import api_view
+from django.shortcuts import get_object_or_404
+
 from django.contrib import messages
 
 from .models import Books
@@ -43,6 +45,16 @@ def rateReviewbooks(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BookDetailView(APIView):
+    def get(self,request, pk):
+        try:
+            results = Books.objects.get(pk=pk)
+        except Books.DoesNotExist:
+            return Response("Doesn't exist")
+
+        serializer = booksSerializer(results)
+        return Response(serializer.data)
 
 
 class booksList(APIView):
