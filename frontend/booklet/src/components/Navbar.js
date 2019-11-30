@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 
 
 const ItemDiv = styled.div`
-	flex-direction: column;
+	flex-direction: row;
 	margin-left: 50px;
 `;
 export default class Navbar extends Component {
@@ -43,36 +43,39 @@ export default class Navbar extends Component {
                                  <FaAlignRight className="nav-icon"/>
                            </button>
                     </div>
-
-                    <ul className={this.state.isOpen?"nav-links show-nav":"nav-links"}>
-                    <li>
-                    <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                    <Link to="/books">Books</Link>
-                    </li>
+                    <ItemDiv>
                         {(() => {
                             if (isLoggedIn === '1') {
-                                    return <li>
+                                return (
+                                    <ul className={this.state.isOpen?"nav-links show-nav":"nav-links"}>
+                                        <li>
+                                            <Link to="/">Home</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/books">Books</Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/share">share</Link>
+                                        </li>
+                                        <li>
                                             <Link onClick={this.onLogout} to="/">Logout</Link>
                                         </li>
-
-                                     ;}
+                                    </ul>);}
                             else{
-                                    return <ItemDiv><li>
-                                        <Link to="/signUp">SignUp</Link>
-                                    </li>
+                                return (
+                                    <ul className={this.state.isOpen?"nav-links show-nav":"nav-links"}>
+                                        <li>
+                                            <Link to="/signUp">SignUp</Link>
+                                        </li>
                                         <li>
                                             <Link to="/signIn">SignIn</Link>
-                                        </li></ItemDiv>
+                                        </li>
+                                    </ul>)
                             }
                         })()}
+                    </ItemDiv>
 
 
-                        <li>
-                            <Link to="/share">share</Link>
-                        </li>
-                    </ul>
                 </div>
             </nav>
         )

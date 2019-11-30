@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from "styled-components";
 import axios from 'axios';
-import {Link} from "react-router-dom";
 
 const MainDiv = styled.div`
             display: flex;
@@ -68,24 +67,32 @@ class SignIn extends React.Component {
         });
     }
 
+    getUserToken(){
+        return JSON.parse(localStorage.getItem("userToken"));
+    }
+
     handleSubmit(event) {
         event.preventDefault();
         console.log('pressed')
         const data = new FormData(event.target);
 
-        console.log(this.state.email);
+        console.log(this.state.username);
 
-        let email = data.get('email');
-        let pass = data.get('password');
-        console.log(email+pass);
+        let username = data.get('username');
+        let password = data.get('password');
+        console.log(username+password);
         console.log(this.state)
-        axios.post('http://127.0.0.1:8000/api/token/',this.state)
+        axios.post('http://127.0.0.1:8000/api/token/', this.state)
             .then(response => {
-                console.log(response);
+                localStorage.setItem("userToken", JSON.stringify(response.data));
+                localStorage.setItem("isLoggedIn", JSON.stringify(1));
+                const usertoken =this.getUserToken().access;
+                console.log(`my token   ${usertoken}`);
+                this.props.history.push('/books/');
+                //console.log(response.data.access);
             }).catch(error => {
-                console.log(error);
-            }
-        )
+            console.log(error);
+        })
     }
     render() {
         return (
@@ -104,7 +111,7 @@ class SignIn extends React.Component {
                             placeholder="enter user name"
                             onChange={this.handleChange}
                             onClick={this.handleChange}/>
-                            
+
                             <label>Password</label>
                         <InputText
                             type="password"

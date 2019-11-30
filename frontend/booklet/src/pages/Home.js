@@ -20,10 +20,11 @@ class Home extends React.Component {
         }
     }
     render() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
         const  {bookList } = this.state;
         return (
             <React.Fragment>
-                <Navbar/>
+                <Navbar isLoggedIn = {isLoggedIn}/>
                 <MainDiv>
                     <Hero >
                         <Banner title="BOOKLET" subtitle="Welcome to the world of desire">

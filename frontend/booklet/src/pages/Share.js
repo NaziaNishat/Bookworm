@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import axios from 'axios';
 import {Link} from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const MainDiv = styled.div`
             display: flex;
@@ -35,7 +36,16 @@ const InputText = styled.input`
             margin-top:10px;
             margin-bottom: 20px;
             animation: input-field ease-in 2s;
-`
+`;
+
+const TextArea = styled.textarea`
+            height: 100px;
+            solid #f6f6f6;
+            text-align: center;
+            margin-top:10px;
+            margin-bottom: 20px;
+            animation: input-field ease-in 2s;
+`;
 const StyledButton = styled.button`
    height: 41px;
    width: 135px;
@@ -54,12 +64,12 @@ class Share extends React.Component {
         super(props);
 
         this.state = {
-            first_name:'',
-            last_name:'',
-            email: '',
-            username:'',
-            password:'',
-            password1:''
+            title:'',
+            author:'',
+            isbn: '',
+            thumbnail:'',
+            category:'',
+            description:''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -77,13 +87,13 @@ class Share extends React.Component {
         console.log('pressed')
         const data = new FormData(event.target);
 
-        console.log(this.state.email);
+        console.log(this.state.title);
 
-        let email = data.get('email');
-        let pass = data.get('password');
-        console.log(email+pass);
+        let author = data.get('author');
+        let category = data.get('category');
+        console.log(author+category);
         console.log(this.state)
-        axios.post('http://127.0.0.1:8000/register/',this.state)
+        axios.post('http://127.0.0.1:8000/sharesell/',this.state)
             .then(response => {
                 console.log(response);
             }).catch(error => {
@@ -92,62 +102,65 @@ class Share extends React.Component {
         )
     }
     render() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
         return (
         <div>
+            <Navbar isLoggedIn = {isLoggedIn}/>
             <MainDiv>
 
                 <ContentBorder>
-                    <h2 >Sign-Up</h2>
+                    <h2 >Share Books?</h2>
+                    <p>Provide your book details bellow and share!</p>
 
                     <FormDiv onSubmit={this.handleSubmit}>
 
-                        <label>First Name</label>
+                        <label>Thumbnail of Book</label>
                         <InputText
                             type="text"
-                            name="first_name"
+                            name="thumbnail"
                             required
-                            placeholder="enter first name"
+                            placeholder="Enter book cover url"
                             onChange={this.handleChange}
                             onClick={this.handleChange}/>
-                        <label>Last Name</label>
+                        <label>Book Title</label>
                         <InputText
                             type="text"
-                            name="last_name"
+                            name="title"
                             required
-                            placeholder="enter user name"
+                            placeholder="Enter book title"
                             onChange={this.handleChange}
                             onClick={this.handleChange}/>
 
-                        <label>Username</label>
+                        <label>Author Name</label>
                         <InputText
                             type="text"
-                            name="username"
+                            name="author"
                             required
-                            placeholder="enter user name"
+                            placeholder="Enter author name"
                             onChange={this.handleChange}
                             onClick={this.handleChange}/>
-                            <label>Email</label>
+                            <label>ISBN Number</label>
                             <InputText
-                                type="email"
-                                name="email"
+                                type="number"
+                                name="isbn"
                                 required
-                                placeholder="enter your email"
+                                placeholder="Enter ISBN number"
                                 onChange={this.handleChange}
                                 onClick={this.handleChange}/>
-                            <label>Password</label>
+                            <label>Category</label>
                         <InputText
-                            type="password"
-                            name="password"
+                            type="text"
+                            name="category"
                             required
-                            placeholder="enter your password"
+                            placeholder="Enter books category"
                             onChange={this.handleChange}
                             onClick={this.handleChange}/>
-                        <label>Confirm password</label>
-                        <InputText
-                            type="password"
-                            name="password1"
+                        <label>Book Description</label>
+                        <TextArea
+                            type="text"
+                            name="text"
                             required
-                            placeholder="password"
+                            placeholder="Enter books description"
                             onChange={this.handleChange}
                             onClick={this.handleChange}/>
 
