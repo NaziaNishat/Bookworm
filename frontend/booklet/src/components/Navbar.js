@@ -58,6 +58,9 @@ export default class Navbar extends Component {
                                             <Link to="/share">share</Link>
                                         </li>
                                         <li>
+                                            <Link to="/sell">sell</Link>
+                                        </li>
+                                        <li>
                                             <Link onClick={this.onLogout} to="/">Logout</Link>
                                         </li>
                                     </ul>);}

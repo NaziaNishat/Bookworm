@@ -55,7 +55,6 @@ export default function BookItem(props) {
     function handleExpandClick() {
         setExpanded(!expanded);
     }
-
     return (
         <Card onClick = {()=> onBookItemClick(id)} className={classes.card}>
             <CardDiv>

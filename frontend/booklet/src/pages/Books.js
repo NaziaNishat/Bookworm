@@ -57,6 +57,7 @@ class Books extends React.Component
     }
     onBookItemClick(bookId) {
         console.log(` my clicl ${bookId} jaj`);
+        this.props.history.push('/books/'+bookId);
     }
 
     render()
@@ -69,7 +70,7 @@ class Books extends React.Component
                 <Navbar isLoggedIn = {isLoggedIn}/>
                 <MainDiv>
                         {bookList.map(book => (
-                            <BookItem key={book.id} book={book} onBookItemClick={this.onBookItemClick}/>
+                            <BookItem key={book.id} book={book} onBookItemClick={this.onBookItemClick.bind(this)}/>
                         ))}
                 </MainDiv>
             </div>
