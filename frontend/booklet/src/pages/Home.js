@@ -17,8 +17,10 @@ class Home extends React.Component {
 
         this.state = {
             bookList : [ ],
-        }
+        };
     }
+
+
     render() {
         const isLoggedIn = localStorage.getItem("isLoggedIn");
         const  {bookList } = this.state;

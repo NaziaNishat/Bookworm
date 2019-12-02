@@ -41,12 +41,12 @@ const Body = styled.div`
 `;
 const BookMenuDiv = styled.div`
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	justify-content: center;
 	align-items: flex-start;
 	width: 100%;
 	height: auto;
-	margin-top: 40px;
+	margin-top: 80px;
 `;
 
 class MyBooks extends React.Component

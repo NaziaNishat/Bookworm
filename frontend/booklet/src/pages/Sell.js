@@ -95,7 +95,7 @@ class Sell extends React.Component {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${this.getUserToken().access}`
         }
-        console.log('pressed')
+        console.log('pressed');
         const data = new FormData(event.target);
 
         console.log(this.state.title);
@@ -103,7 +103,7 @@ class Sell extends React.Component {
         let author = data.get('author');
         let category = data.get('category');
         console.log(`Bearer ${this.getUserToken().access}`);
-        console.log(this.state)
+        console.log(this.state);
         axios.post('http://127.0.0.1:8000/sharesell/',this.state, {
             headers:{
                 'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ class Sell extends React.Component {
                                 placeholder="Enter books category"
                                 onChange={this.handleChange}
                                 onClick={this.handleChange}/>
-                            
+
                             <label>Book Price</label>
                             <InputText
                                 type="number"

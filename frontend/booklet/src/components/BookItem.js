@@ -44,7 +44,7 @@ const CardDiv = styled.div`
 const ImageDiv=styled.img`
     width:200px;
     height: 300px;
-`
+`;
 
 export default function BookItem(props) {
     const {book, onBookItemClick} = props;
