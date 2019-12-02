@@ -40,7 +40,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Projects/rafa front-end/Bookworm/booklet" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../HCI-website-sust/hci-lab-sust" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -88,7 +88,9 @@
       <workItem from="1574227854976" duration="888000" />
       <workItem from="1574658707925" duration="599000" />
       <workItem from="1574742645979" duration="14302000" />
-      <workItem from="1574846109854" duration="40370000" />
+      <workItem from="1574846109854" duration="41833000" />
+      <workItem from="1575178560290" duration="518000" />
+      <workItem from="1575202406308" duration="6454000" />
     </task>
     <servers />
   </component>
@@ -96,9 +98,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="779" y="310" width="416" height="484" key="FileChooserDialogImpl" timestamp="1574773160870">
+    <state x="779" y="310" width="416" height="484" key="FileChooserDialogImpl" timestamp="1575179075501">
       <screen x="73" y="27" width="1847" height="1053" />
     </state>
     <state x="779" y="310" width="416" height="484" key="FileChooserDialogImpl/73.27.1847.1053/1920.0.1920.1080@73.27.1847.1053" timestamp="1574773160870" />
+    <state x="779" y="310" key="FileChooserDialogImpl/73.27.1847.1053@73.27.1847.1053" timestamp="1575179075501" />
   </component>
 </project>

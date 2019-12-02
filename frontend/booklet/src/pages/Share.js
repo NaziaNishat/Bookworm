@@ -69,6 +69,7 @@ class Share extends React.Component {
             isbn: '',
             thumbnail:'',
             category:'',
+            type:'share',
             description:''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -78,12 +79,20 @@ class Share extends React.Component {
     handleChange(event) {
 
         this.setState({
-                [event.target.name]: event.target.value
+            [event.target.name]: event.target.value
         });
+    }
+
+    getUserToken(){
+        return JSON.parse(localStorage.getItem("userToken"));
     }
 
     handleSubmit(event) {
         event.preventDefault();
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.getUserToken().access}`
+        }
         console.log('pressed')
         const data = new FormData(event.target);
 
@@ -91,12 +100,46 @@ class Share extends React.Component {
 
         let author = data.get('author');
         let category = data.get('category');
-        console.log(author+category);
+        console.log(`Bearer ${this.getUserToken().access}`);
         console.log(this.state)
-        axios.post('http://127.0.0.1:8000/sharesell/',this.state)
-            .then(response => {
-                console.log(response);
-            }).catch(error => {
+        axios.post('http://127.0.0.1:8000/sharesell/',this.state, {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.getUserToken().access}`
+            }
+        }).then(response => {
+            console.log('I am in good'+response.status);
+            this.props.history.push('/books/');
+
+            console.log("request successful :  "+response.data);
+        }).catch(error => {
+                const statusCode = error.response.status;
+                console.log('I am in bad '+error.response.status);
+                let refresh = this.getUserToken().refresh;
+                console.log(refresh);
+                if(statusCode=== 401) {
+                    axios.post('http://127.0.0.1:8000/api/token/refresh/', {refresh:this.getUserToken().refresh })
+                        .then(response => {
+                            console.log(response.data.access);
+                            axios.post('http://127.0.0.1:8000/sharesell/',this.state, {
+                                headers:{
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${response.data.access}`
+                                }
+                            }).then(response => {
+                                console.log('I am in good under bad'+response.status);
+                                this.props.history.push('/books/');
+
+                                console.log("request successful :  "+response.data);
+                            }).catch(error => {
+                                console.log(error);
+                            })
+                        })
+                        .catch(error => {
+                                console.log(error +"refreesh token api error");
+                            }
+                        )
+                }
                 console.log(error);
             }
         )
@@ -139,15 +182,15 @@ class Share extends React.Component {
                             placeholder="Enter author name"
                             onChange={this.handleChange}
                             onClick={this.handleChange}/>
-                            <label>ISBN Number</label>
-                            <InputText
-                                type="number"
-                                name="isbn"
-                                required
-                                placeholder="Enter ISBN number"
-                                onChange={this.handleChange}
-                                onClick={this.handleChange}/>
-                            <label>Category</label>
+                        <label>ISBN Number</label>
+                        <InputText
+                            type="number"
+                            name="isbn"
+                            required
+                            placeholder="Enter ISBN number"
+                            onChange={this.handleChange}
+                            onClick={this.handleChange}/>
+                        <label>Category</label>
                         <InputText
                             type="text"
                             name="category"
@@ -155,10 +198,9 @@ class Share extends React.Component {
                             placeholder="Enter books category"
                             onChange={this.handleChange}
                             onClick={this.handleChange}/>
-                        <label>Book Description</label>
                         <TextArea
                             type="text"
-                            name="text"
+                            name="description"
                             required
                             placeholder="Enter books description"
                             onChange={this.handleChange}

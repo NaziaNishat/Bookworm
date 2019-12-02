@@ -70,7 +70,7 @@ class Sell extends React.Component {
             isbn: '',
             thumbnail:'',
             category:'',
-            type:'',
+            type:'sell',
             price:'',
             description:''
         };
@@ -201,14 +201,7 @@ class Sell extends React.Component {
                                 placeholder="Enter books category"
                                 onChange={this.handleChange}
                                 onClick={this.handleChange}/>
-                            <label>Book type</label>
-                            <InputText
-                                type="text"
-                                name="type"
-                                required
-                                placeholder="ex : history/adventure etc"
-                                onChange={this.handleChange}
-                                onClick={this.handleChange}/>
+                            
                             <label>Book Price</label>
                             <InputText
                                 type="number"

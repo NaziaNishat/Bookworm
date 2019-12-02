@@ -48,7 +48,7 @@ const ImageDiv=styled.img`
 
 export default function BookItem(props) {
     const {book, onBookItemClick} = props;
-    const { title, id, author, isbn, thumbnail, category, availability} = book;
+    const { title, id, author, isbn, thumbnail, category, availability,type} = book;
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
 
@@ -84,6 +84,9 @@ export default function BookItem(props) {
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                     {category}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                    {type}
                 </Typography>
                 {(availability) ? (<Typography variant="body2" color="textSecondary" component="p">
                         Available
