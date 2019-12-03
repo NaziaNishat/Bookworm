@@ -13,9 +13,10 @@ import styled from "styled-components";
 
 const useStyles = makeStyles(theme => ({
     card: {
-        maxWidth: 700,
+        maxWidth: 800,
         marginBottom: 20,
         cursor: 'pointer'
+
     },
     media: {
         height: 0,
@@ -38,17 +39,24 @@ const useStyles = makeStyles(theme => ({
 
 const CardDiv = styled.div`
     display:flex;
+    width: 800px;
     flex-direction: row;
     margin: 10px;
 `;
+const BookdetailsDiv = styled.div `
+    display: flex;
+    flex-direction: Column;
+    margin: 10px;
+`
 const ImageDiv=styled.img`
-    width:200px;
-    height: 300px;
+    width:250px;
+    height: 330px;
+    margin: 10px;
 `;
 
 export default function BookItem(props) {
     const {book, onBookItemClick} = props;
-    const { title, id, author, isbn, thumbnail, category, availability,type} = book;
+    const { title, id, description,author, isbn, thumbnail, category, availability,type} = book;
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
 
@@ -59,43 +67,37 @@ export default function BookItem(props) {
         <Card onClick = {()=> onBookItemClick(id)} className={classes.card}>
             <CardDiv>
                 <ImageDiv src = {thumbnail} alt="Smiley face"/>
-                <CardHeader
-                avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        B
-                    </Avatar>
-                }
-                action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title={title}
-                subheader={isbn}
-            />
+                <BookdetailsDiv>
+                    <CardHeader
+                        title={title}
+                        subheader={isbn}/>
+
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {description}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {category}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {type}
+                        </Typography>
+                        {(availability) ? (<Typography variant="body2" color="textSecondary" component="p">
+                                Available
+                            </Typography>)
+                            : (<Typography variant="body2" color="textSecondary" component="p">
+                                Not Available
+                            </Typography>)}
+
+                    </CardContent>
+                </BookdetailsDiv>
+
             {/*<CardMedia*/}
             {/*    className={classes.media}*/}
             {/*    image={thumbnail}*/}
             {/*    title={author}*/}
             {/*/>*/}
-            <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    The book is basically written ver a boy who like adventures.
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {category}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {type}
-                </Typography>
-                {(availability) ? (<Typography variant="body2" color="textSecondary" component="p">
-                        Available
-                    </Typography>)
-                    : (<Typography variant="body2" color="textSecondary" component="p">
-                        Not Available
-                    </Typography>)}
 
-            </CardContent>
             </CardDiv>
 
 

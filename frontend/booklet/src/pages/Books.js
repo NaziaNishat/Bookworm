@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import BookItem from "../components/BookItem"
 import axios from "axios";
+// import {input} from "milligram"
 import RecipeReviewCard from "../components/SingleBookCart";
 // const ChildDiv = styled.div`
 //     display: flex;
@@ -32,6 +33,15 @@ const ChildDiv = styled.div`
 	width: auto;
 `;
 
+const InputText = styled.input`
+            height: 40px;
+            solid #f6f6f6;
+            text-align: center;
+            margin-top:40px;
+            margin-bottom: 20px;
+            animation: input-field ease-in 2s;
+`;
+
 class Books extends React.Component
 {
     constructor(props)
@@ -40,6 +50,7 @@ class Books extends React.Component
 
         this.state = {
             bookList: [],
+            serach: ''
         }
     }
 
@@ -60,16 +71,40 @@ class Books extends React.Component
         this.props.history.push('/books/'+bookId);
     }
 
+    updateSearch(event) {
+        this.setState({
+            search: event.target.value.substr(0,20)
+        });
+    }
+
     render()
     {
         const isLoggedIn = localStorage.getItem("isLoggedIn");
-        const {bookList} = this.state;
+        let {bookList,search} = this.state;
+        console.log('good    '+search)
+        let filteredBooks;
+        if(search !== undefined) {
+            filteredBooks = bookList.filter(
+                (book) => {
+                    return book.title.indexOf(this.state.search)!==-1;
+                }
+            );
+        }
+        else {
+            filteredBooks = bookList;
+        }
+
 
         return (
             <div>
                 <Navbar isLoggedIn = {isLoggedIn}/>
                 <MainDiv>
-                        {bookList.map(book => (
+                        <InputText
+                        type="text"
+                        value={this.state.search}
+                        placeholder={"Book Title ..."}
+                        onChange={this.updateSearch.bind(this)}/>
+                        {filteredBooks.map(book => (
                             <BookItem key={book.id} book={book} onBookItemClick={this.onBookItemClick.bind(this)}/>
                         ))}
                 </MainDiv>

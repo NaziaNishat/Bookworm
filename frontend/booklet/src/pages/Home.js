@@ -34,7 +34,8 @@ class Home extends React.Component {
                         </Banner>
                     </Hero>
 
-                    <h3>Books List: </h3>
+
+                    <h2>Book List</h2>
 
                     <ChildDiv>
                         {bookList.map(book => (

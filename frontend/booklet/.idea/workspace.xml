@@ -4,6 +4,8 @@
     <list default="true" id="3617be9e-119d-4d57-b1a1-fd127b872cc7" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SingleBookCart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SingleBookCart.js" afterDir="false" />
@@ -69,6 +71,11 @@
       </list>
     </option>
   </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="false" />
+    <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -91,7 +98,7 @@
       <workItem from="1574846109854" duration="41833000" />
       <workItem from="1575178560290" duration="518000" />
       <workItem from="1575202406308" duration="7169000" />
-      <workItem from="1575261163786" duration="10807000" />
+      <workItem from="1575261163786" duration="19025000" />
     </task>
     <servers />
   </component>

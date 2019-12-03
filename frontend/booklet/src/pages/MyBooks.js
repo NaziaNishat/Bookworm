@@ -68,6 +68,58 @@ class MyBooks extends React.Component
         return JSON.parse(localStorage.getItem("userToken"));
     }
 
+    componentDidMount() {console.log('clicked share') ;
+        this.setState({
+            selectedSellMenuId : '0',
+            selectedShareMenuId : '1'
+        });
+        axios.get('http://127.0.0.1:8000/my-shared-books',{
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.getUserToken().access}`
+            }
+        }).then(response => {
+            console.log('I am in good'+response.status);
+            console.log(response.data);
+            this.setState({
+                bookList : response.data,
+
+            })
+        }).catch(error => {
+                const statusCode = error.response.status;
+                console.log('I am in bad '+error.response.status);
+                let refresh = this.getUserToken().refresh;
+                console.log(refresh);
+                if(statusCode=== 401) {
+                    axios.post('http://127.0.0.1:8000/api/token/refresh/', {refresh:this.getUserToken().refresh })
+                        .then(response => {
+                            console.log(response.data.access);
+                            axios.get('http://127.0.0.1:8000/my-shared-books', {
+                                headers:{
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${response.data.access}`
+                                }
+                            }).then(response => {
+                                console.log('I am in good under bad'+response.status);
+                                console.log(response.data);
+                                this.setState({
+                                    bookList : response.data,
+
+                                })
+                            }).catch(error => {
+                                console.log(error);
+                            })
+                        })
+                        .catch(error => {
+                                console.log(error +"refreesh token api error");
+                            }
+                        )
+                }
+                console.log(error);
+            }
+        )
+    }
+
     onShareMenuClick() {
         console.log('clicked share') ;
         this.setState({
