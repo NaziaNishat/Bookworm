@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 
 from .models import Books
+from .models import RateReview
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -48,14 +49,32 @@ def rateReviewbooks(request,pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class BookDetailView(APIView):
-    def get(self,request, pk):
+    def get(self, request, pk):
         try:
             results = Books.objects.get(pk=pk)
         except Books.DoesNotExist:
             return Response("Doesn't exist")
 
-        serializer = booksSerializer(results)
-        return Response(serializer.data)
+        serializerBook = booksSerializer(results)
+
+        try:
+
+            results = RateReview.objects.filter(book=pk)
+
+        except RateReview.DoesNotExist:
+            return Response("Doesn't exist")
+
+        serializerRateReview = rateReviewSerializer(results, many=True)
+
+        Serializer_list = [serializerBook.data, serializerRateReview.data]
+
+        content = {
+            'status': 1,
+            'responseCode': status.HTTP_200_OK,
+            'data': Serializer_list,
+
+        }
+        return Response(content)
 
 
 class booksList(APIView):
