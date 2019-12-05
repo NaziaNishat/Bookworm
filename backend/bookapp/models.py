@@ -19,6 +19,8 @@ class Books(models.Model):
     # owner = models.CharField(max_length=100, default='')
     owner = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='book_owner')
     type = models.CharField(max_length=50, default='share')
+    owner_email = models.EmailField(max_length=100,default='abc@gmail.com')
+
 
 
     def __str__(self):

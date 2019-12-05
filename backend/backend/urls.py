@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('books/', views.booksList.as_view()),
     path('books/<int:pk>/', views.BookDetailView.as_view()),
+    path('books/<int:pk>/books-request/', views.BookRequest.as_view()),
 
     path('sharesell/', views.share_books),
 
