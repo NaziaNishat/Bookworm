@@ -13,6 +13,7 @@ from .serializers import booksSerializer, rateReviewSerializer
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 
+userModel = get_user_model()
 
 @api_view(['POST'])
 def share_books(request):
@@ -92,6 +93,17 @@ class booksList(APIView):
                 allBooks = Books.objects.all()
                 serializer = booksSerializer(allBooks, many=True)
                 return Response(serializer.data)
+
+class BookRequest(APIView):
+    def get(self,request, pk):
+        try:
+            results = Books.objects.filter(id=pk)
+            # results = userModel.objects.get(pk=1)
+        except userModel.DoesNotExist:
+            return Response("Doesn't exist")
+        # serializer = UserSignUpSerializer(results)
+        serializer = booksSerializer(results,many=True)
+        return Response(serializer.data)
 
 
 class BookShareHistory(APIView):
