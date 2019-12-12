@@ -7,8 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import {blue, red} from '@material-ui/core/colors';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import styled from "styled-components";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -32,11 +33,16 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     backgroundColor: red[500],
   },
+
+
 }));
+ const AttributeText = styled.p`
+    color = "#0000FF";
+ `;
 
 export default function RecipeReviewCard(props) {
   const {book} = props;
-  const { title, author, isbn, thumbnail, category, availability} = book;
+  const { title, author, isbn, thumbnail, category, availability, description} = book;
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -66,12 +72,12 @@ export default function RecipeReviewCard(props) {
         title={author}
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          The book is basically written ver a boy who like adventures.
+        <Typography variant="body2" component="p">
+          {description}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <AttributeText >
           {category}
-        </Typography>
+        </AttributeText>
         {(availability) ? (<Typography variant="body2" color="textSecondary" component="p">
           Available
         </Typography>)

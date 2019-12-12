@@ -35,7 +35,8 @@ const ChildDiv = styled.div`
 
 const InputText = styled.input`
             height: 40px;
-            solid #f6f6f6;
+            solid : #f6f6f6;
+            width : 400px;
             text-align: center;
             margin-top:40px;
             margin-bottom: 20px;
@@ -86,7 +87,7 @@ class Books extends React.Component
         if(search !== undefined) {
             filteredBooks = bookList.filter(
                 (book) => {
-                    return book.title.indexOf(this.state.search)!==-1;
+                    return (book.title.indexOf(this.state.search)!==-1) || (book.category.indexOf(this.state.search) !== -1) || (book.author.indexOf(this.state.search) !== -1);
                 }
             );
         }
@@ -102,7 +103,7 @@ class Books extends React.Component
                         <InputText
                         type="text"
                         value={this.state.search}
-                        placeholder={"Book Title ..."}
+                        placeholder={"Give title, category, author name to search"}
                         onChange={this.updateSearch.bind(this)}/>
                         {filteredBooks.map(book => (
                             <BookItem key={book.id} book={book} onBookItemClick={this.onBookItemClick.bind(this)}/>

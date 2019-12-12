@@ -2,6 +2,8 @@ import React from 'react'
 import axios from "axios";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import ReviewLayout from "../components/ReviewLayout";
+import BookItem from "../components/BookItem";
 
 const ImageDiv=styled.img`
     width:300px;
@@ -61,6 +63,26 @@ export default class BooksDescription extends React.Component {
             book : '',
             review:'',
             ratings:'',
+            reviews: [
+                {
+                    id: 1,
+                    ratings: 5,
+                    review: "Good book",
+                    rate_reviewer: "4"
+                },
+                {
+                    id: 2,
+                    ratings: 4.5,
+                    review: "normal book",
+                    rate_reviewer: "4.7"
+                },
+                {
+                    id: 3,
+                    ratings: 3.5,
+                    review: "Bad book",
+                    rate_reviewer: "4.2"
+                }
+            ]
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -84,7 +106,7 @@ export default class BooksDescription extends React.Component {
         }
         console.log('pressed');
         const bookData = {
-            book_id : this.state.book.id,
+
             ratings : this.state.ratings,
             review : this.state.review
         };
@@ -94,7 +116,7 @@ export default class BooksDescription extends React.Component {
         let rating = data.get('rating');
         console.log(`Bearer ${this.getUserToken().access}`);
         console.log(this.state);
-        axios.post('http://127.0.0.1:8000/rate-review/',bookData, {
+        axios.post(`http://127.0.0.1:8000/books/${this.state.book.id}/rate-review/`,bookData, {
             headers:{
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${this.getUserToken().access}`
@@ -113,7 +135,7 @@ export default class BooksDescription extends React.Component {
                     axios.post('http://127.0.0.1:8000/api/token/refresh/', {refresh:this.getUserToken().refresh })
                         .then(response => {
                             console.log(response.data.access);
-                            axios.post('http://127.0.0.1:8000/rate-review/',bookData, {
+                            axios.post(`http://127.0.0.1:8000/books/${this.state.book.id}/rate-review/`,bookData, {
                                 headers:{
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${response.data.access}`
@@ -148,6 +170,9 @@ export default class BooksDescription extends React.Component {
                     <h3>{author}</h3>
                     <p>{description}</p>
 
+                    <p>Want to buy or get the book?</p>
+                    <p> Owner Email : jarintasnimaugust20</p>
+
                     <ReviewDiv>
                         <h3 margin ="20px">Input review: </h3>
                         <FormDiv onSubmit={this.handleSubmit}>
@@ -171,7 +196,15 @@ export default class BooksDescription extends React.Component {
                             <StyledButton type={'submit'}>Submit</StyledButton>
                         </FormDiv>
 
+
+
                     </ReviewDiv>
+                    <h2>Reviews :</h2>
+                    {
+                        this.state.reviews.map(review => (
+                            <ReviewLayout key={review.id} reviewData={review} />
+                        ))
+                    }
 
                 </BookDiv>
 
