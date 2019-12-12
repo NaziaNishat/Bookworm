@@ -40,6 +40,8 @@ def rateReviewbooks(request,pk):
     current_user = request.user.id
     data['rate_reviewer'] = current_user
     data['book'] = pk
+    data['books_rr'] = pk
+
 
     serializer = rateReviewSerializer(data=data)
 

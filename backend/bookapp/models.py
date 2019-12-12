@@ -29,11 +29,11 @@ class Books(models.Model):
         db_table = "books"
 
 class RateReview(models.Model):
-
+    books_rr = models.ForeignKey(Books, related_name='reviews', on_delete=models.CASCADE, default=None)
     ratings = models.IntegerField(default=5)
     review = models.TextField()
-    rate_reviewer = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='rate_reviewer',default=1)
-    book = models.ForeignKey(Books, on_delete=models.CASCADE, related_name='reviewed_book',null=True)
+    rate_reviewer = models.CharField(max_length=50, default='1')
+    book = models.CharField(max_length=50, default='1')
 
     def __str__(self):
         return self.ratings;
