@@ -6,7 +6,6 @@ from rest_framework.decorators import api_view
 from rest_framework.utils import json
 from rest_framework.views import APIView
 from . models import Profile
-from .serializers import ProfileSerializer
 from rest_framework.response import Response
 from registration.serializers import UserSignUpSerializer
 from rest_framework.generics import GenericAPIView, get_object_or_404

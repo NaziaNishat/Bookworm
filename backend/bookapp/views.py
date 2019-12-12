@@ -10,7 +10,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import booksSerializer, rateReviewSerializer
-from  registration.serializers import UserSignUpSerializer
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 
@@ -42,6 +41,7 @@ def rateReviewbooks(request,pk):
 
     current_user = request.user.id
     data['rate_reviewer'] = current_user
+    data['books_rr'] = pk
     data['book'] = pk
 
     serializer = rateReviewSerializer(data=data)
