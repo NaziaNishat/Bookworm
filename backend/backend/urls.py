@@ -25,7 +25,10 @@ urlpatterns = [
 
     path('books/<int:pk>/rate-review/', views.rateReviewbooks),
     path('my-shared-books/', views.BookShareHistory.as_view()),
+    path('my-shared-books/<int:pk>/update/', views.book_update),
+
     path('my-books-for-sale/', views.BookSellHistory.as_view()),
+    path('my-books-for-sale/<int:pk>/update/', views.book_update),
 
     path('my-profile/', user_views.ProfileView.as_view()),
     path('edit-profile/', user_views.user_update),

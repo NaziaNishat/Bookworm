@@ -108,6 +108,17 @@ class BookRequest(APIView):
         return Response(serializer.data)
 
 
+@api_view(["PUT"])
+def book_update(request,pk):
+    book = Books.objects.get(id=pk)
+    if request.method == "PUT":
+        serializer = booksSerializer(book, data=request.data,partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response({"error": serializer.errors, "error": True})
+
 class BookShareHistory(APIView):
     def get(self, request):
 
