@@ -3,6 +3,8 @@ import axios from "axios";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import ReviewLayout from "../components/ReviewLayout";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import BookItem from "../components/BookItem";
 
 const ImageDiv=styled.img`
@@ -15,7 +17,9 @@ const BookDiv = styled.div`
     margin: 100px;
     flex-flow: column wrap;
 `;
-
+const DesText = styled.span`
+    margin-bottom: 15px;
+`
 const ReviewDiv = styled.div `
     display:flex;
     margin-top: 20px;
@@ -48,6 +52,7 @@ const StyledButton = styled.button`
    height: 41px;
    width: 135px;
    margin-bottom:20px;
+   margin-top: 10px;
    border-radius: 10px;
    background-color: skyblue;
    text-align: center;
@@ -86,6 +91,7 @@ export default class BooksDescription extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onGetBookClick = this.onGetBookClick.bind(this);
     }
     handleChange(event) {
 
@@ -158,20 +164,22 @@ export default class BooksDescription extends React.Component {
         )
     }
 
+
     render() {
-        const { title, description,id, author, isbn, thumbnail, category, availability,type} = this.state.book;
+        const { title, description,id, author, isbn, thumbnail, category, availability,type, reviews, price} = this.state.book;
         const isLoggedIn = localStorage.getItem("isLoggedIn");
         return (
             <div>
                 <Navbar isLoggedIn = {isLoggedIn}/>
                 <BookDiv>
                     <ImageDiv src = {thumbnail} alt="Smiley face"/>
-                    <h2>{title}</h2>
-                    <h3>{author}</h3>
-                    <p>{description}</p>
+                    <h2>Book Name: {title}</h2>
+                    <h3>Author : {author}</h3>
+                    <DesText>{description}</DesText>
+                    {
+                        (type === 'sell' || type === 'Sell')?<h3>Type= {type} , Price: {price}</h3>:<h3>Type {type}</h3>
+                    }
 
-                    <p>Want to buy or get the book?</p>
-                    <p> Owner Email : jarintasnimaugust20</p>
 
                     <ReviewDiv>
                         <h3 margin ="20px">Input review: </h3>
@@ -201,14 +209,12 @@ export default class BooksDescription extends React.Component {
                     </ReviewDiv>
                     <h2>Reviews :</h2>
                     {
-                        this.state.reviews.map(review => (
+                        this.state.book.reviews.map(review => (
                             <ReviewLayout key={review.id} reviewData={review} />
                         ))
                     }
 
                 </BookDiv>
-
-                <h2>jksasakj{this.props.match.params.id}</h2>
             </div>
         );
     }
