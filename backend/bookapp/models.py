@@ -31,7 +31,7 @@ class Books(models.Model):
 
 class RateReview(models.Model):
 
-    books_rr = models.ForeignKey(Books, related_name='review', on_delete=models.CASCADE,default=None)
+    books_rr = models.ForeignKey(Books, related_name='reviews', on_delete=models.CASCADE,default=None)
     ratings = models.IntegerField(default=5)
     review = models.TextField(default='excellent')
     # rate_reviewer = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='rate_reviewer',default=1)

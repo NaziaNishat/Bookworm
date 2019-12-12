@@ -10,9 +10,9 @@ class rateReviewSerializer(serializers.ModelSerializer):
 		fields= '__all__'
 
 class booksSerializer(serializers.ModelSerializer):
-	review = rateReviewSerializer(many=True, read_only=True)
+	reviews = rateReviewSerializer(many=True, read_only=True)
 
 	class Meta:
 		model = Books
 		fields= 	'__all__'
-		extra_fields =['review']
+		extra_fields =['reviews']
