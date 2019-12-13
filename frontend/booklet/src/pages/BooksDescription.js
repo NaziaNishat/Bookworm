@@ -164,10 +164,28 @@ export default class BooksDescription extends React.Component {
         )
     }
 
+    onGetBookClick() {
+        confirmAlert({
+            title: `Book Name: ${this.state.book.title}`,
+            message: `Owner Email: ${this.state.book.owner_email}`,
+            buttons: [
+                {
+                    label: 'Got It',
+                    onClick: () => alert('Thank you')}
+                // },
+                // {
+                //     label: 'No',
+                //     onClick: () => alert('Click No')
+                // }
+            ]
+        });
+    }
 
     render() {
         const { title, description,id, author, isbn, thumbnail, category, availability,type, reviews, price} = this.state.book;
         const isLoggedIn = localStorage.getItem("isLoggedIn");
+    
+    
         return (
             <div>
                 <Navbar isLoggedIn = {isLoggedIn}/>
@@ -179,7 +197,9 @@ export default class BooksDescription extends React.Component {
                     {
                         (type === 'sell' || type === 'Sell')?<h3>Type= {type} , Price: {price}</h3>:<h3>Type {type}</h3>
                     }
-
+                    {
+                        (availability)?<div><p>Available-Want To Get the Book?</p><StyledButton onClick={this.onGetBookClick}>Contact Owner</StyledButton></div>:<p>Not Available</p>
+                    }
 
                     <ReviewDiv>
                         <h3 margin ="20px">Input review: </h3>
@@ -208,8 +228,9 @@ export default class BooksDescription extends React.Component {
 
                     </ReviewDiv>
                     <h2>Reviews :</h2>
+                   
                     {
-                        this.state.book.reviews.map(review => (
+                        this.state.reviews.map(review => (
                             <ReviewLayout key={review.id} reviewData={review} />
                         ))
                     }
@@ -229,6 +250,7 @@ export default class BooksDescription extends React.Component {
                         console.log('entered');
                         this.setState({
                             book : book,
+                            reviews: book.reviews
                         });
                         console.log(book);
                     }
