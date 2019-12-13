@@ -27,7 +27,7 @@ const ReviewDiv = styled.div `
 `;
 const TextArea = styled.textarea`
             height: 100px;
-            width: 400px;
+            width: 1000px;
             solid #f6f6f6;
             text-align: center;
             margin-top:10px;
@@ -38,7 +38,7 @@ const TextArea = styled.textarea`
 const InputText = styled.input`
             height: 40px;
             solid :#f6f6f6;
-            width :400px;
+            width :1000px;
             margin-top:10px;
             margin-bottom: 20px;
             text-align: center;
@@ -165,13 +165,56 @@ export default class BooksDescription extends React.Component {
     }
 
     onGetBookClick() {
+        const updateAvailability = {availablity:false}
         confirmAlert({
             title: `Book Name: ${this.state.book.title}`,
             message: `Owner Email: ${this.state.book.owner_email}`,
             buttons: [
                 {
                     label: 'Got It',
-                    onClick: () => alert('Thank you')}
+                    onClick: () => {
+                        axios.post(`http://127.0.0.1:8000/my-books-for-sale/${this.state.book.id}/upd`,updateAvailability, {
+                            headers:{
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${this.getUserToken().access}`
+                            }
+                        }).then(response => {
+                            console.log('I am in good'+response.status);
+                            this.props.history.push('/books/');
+                
+                            console.log("request successful :  "+response.data);
+                        }).catch(error => {
+                                const statusCode = error.response.status;
+                                console.log('I am in bad '+error.response.status);
+                                let refresh = this.getUserToken().refresh;
+                                console.log(refresh);
+                                if(statusCode=== 401) {
+                                    axios.post('http://127.0.0.1:8000/api/token/refresh/', {refresh:this.getUserToken().refresh })
+                                        .then(response => {
+                                            console.log(response.data.access);
+                                            axios.post(`http://127.0.0.1:8000/my-books-for-sale/${this.state.book.id}/upd`,updateAvailability, {
+                                                headers:{
+                                                    'Content-Type': 'application/json',
+                                                    'Authorization': `Bearer ${response.data.access}`
+                                                }
+                                            }).then(response => {
+                                                console.log('I am in good under bad'+response.status);
+                                                this.props.history.push('/books/');
+                                                console.log("request successful :  "+response.data);
+                                            }).catch(error => {
+                                                console.log(error);
+                                            })
+                                        })
+                                        .catch(error => {
+                                                console.log(error +"refresh token api error");
+                                            }
+                                        )
+                                }
+                                console.log(error);
+                            }
+                        )
+                    }
+                }
                 // },
                 // {
                 //     label: 'No',
@@ -192,7 +235,7 @@ export default class BooksDescription extends React.Component {
                 <BookDiv>
                     <ImageDiv src = {thumbnail} alt="Smiley face"/>
                     <h2>Book Name: {title}</h2>
-                    <h3>Author : {author}</h3>
+                    <h4>Author : {author}</h4>
                     <DesText>{description}</DesText>
                     {
                         (type === 'sell' || type === 'Sell')?<h3>Type= {type} , Price: {price}</h3>:<h3>Type {type}</h3>

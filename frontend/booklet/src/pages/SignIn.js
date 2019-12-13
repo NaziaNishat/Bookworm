@@ -92,6 +92,7 @@ class SignIn extends React.Component {
                 //console.log(response.data.access);
             }).catch(error => {
             console.log(error);
+            alert("Please fill up correctly.")
         })
     }
     render() {

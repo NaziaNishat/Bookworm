@@ -85,6 +85,7 @@ class SignUp extends React.Component {
                 console.log(response);
             }).catch(error => {
                 console.log(error);
+                alert("please fill up fields correctly");
             }
         )
     }
@@ -110,6 +111,7 @@ class SignUp extends React.Component {
                 //console.log(response.data.access);
             }).catch(error => {
                 console.log(error);
+                alert("please fill up fields correctly");
         })
     }
     render() {

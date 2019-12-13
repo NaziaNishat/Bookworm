@@ -75,6 +75,9 @@ export default function RecipeReviewCard(props) {
         <Typography variant="body2" component="p">
           {description}
         </Typography>
+        <Typography variant="body2" component="p">
+          {author}
+        </Typography>
         <AttributeText >
           {category}
         </AttributeText>

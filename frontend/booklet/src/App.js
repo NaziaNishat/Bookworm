@@ -15,7 +15,7 @@ import Share from "./pages/Share";
 import Sell from "./pages/Sell"
 import BooksDescription from "./pages/BooksDescription"
 import MyBooks from "./pages/MyBooks";
-
+import profile from "./pages/profile";
 class App extends Component {
   render() {
     return (
@@ -31,6 +31,7 @@ class App extends Component {
         <Route exact path="/share/" component={Share} />
         <Route exact path="/sell/" component={Sell} />
         <Route exact path="/mybooks/" component={MyBooks} />
+        <Route exact path="/profile/" component={profile} />
         <Route component={Error}/>
       </Switch>
       </div>

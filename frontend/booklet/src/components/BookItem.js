@@ -73,19 +73,22 @@ export default function BookItem(props) {
                         subheader={isbn}/>
 
                     <CardContent>
-                        <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="black" component="p">
+                     <h4>Author : {author}</h4>
+                    </Typography>
+                        <Typography variant="body2" color="black" component="p">
                             {description}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {category}
+                        <Typography variant="body2" color="black" component="p">
+                        <p>Category : {category}</p>
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {type}
+                        <Typography variant="body2" color="black" component="p">
+                        <p>Type : {type}</p>
                         </Typography>
-                        {(availability) ? (<Typography variant="body2" color="textSecondary" component="p">
+                        {(availability) ? (<Typography variant="body2" color="black" component="p">
                                 Available
                             </Typography>)
-                            : (<Typography variant="body2" color="textSecondary" component="p">
+                            : (<Typography variant="body2" color="Brown" component="p">
                                 Not Available
                             </Typography>)}
 

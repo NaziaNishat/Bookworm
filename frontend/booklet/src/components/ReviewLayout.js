@@ -7,7 +7,7 @@ const Div = styled.div`
 	flex-direction: column;
 	width: 400px;
 	height: auto;
-    background: linear-gradient(177.46deg, #DAEBE5 0%, #F8F4D5 100%);
+    // background: linear-gradient(177.46deg, #DAEBE5 0%, #F8F4D5 100%);
 `;
 
 const ReviewHeaderDiv = styled.div`
@@ -43,11 +43,11 @@ const QuoteText = styled.span`
 
 const ReviewLayout = props => {
     const {reviewData} = props;
-    const {ratings, rate_reviewer, review} = reviewData;
+    const {ratings, rate_reviewer, review,reviewer_username} = reviewData;
     return(
         <Div>
             <ReviewHeaderDiv>
-                <Text>User name {rate_reviewer}</Text>
+                <Text> {reviewer_username} </Text>
                 <Text>---- {ratings}</Text>
             </ReviewHeaderDiv>
             <QuoteText>{`"${review}"`}</QuoteText>
